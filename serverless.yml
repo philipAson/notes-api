@@ -1,0 +1,38 @@
+service: notes-api
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  profile: tester
+  region: eu-north-1
+  iam:
+    role: arn:aws:iam::062156450918:role/notes-cloud
+
+plugins:
+  - serverless-webpack
+
+package:
+  individually: true
+
+functions:
+  postNotes:
+    handler: functions/postNotes/index.handler
+    events:
+      - httpApi:
+          path: '/api/notes'
+          method: POST
+
+resources:
+  Resources:
+    notesDB:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: notes-db
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
