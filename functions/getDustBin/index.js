@@ -7,16 +7,17 @@ exports.handler = async (event, context) => {
     
     let params = {
         TableName: 'notes-db',
-        FilterExpression: 'uid = :uidValue',
+        FilterExpression: 'uid = :uidValue AND active = :activeValue',
         ExpressionAttributeValues: {
-            ':uidValue': "philipTest"
+            ':uidValue': "philipTest",
+            ':activeValue': false
         }
     }
 
     try {
         const {Items} = await db.scan(params).promise();
         if (!Items) {
-            return sendResponse(404, {message: "Ooopsie!"})
+            return sendResponse(404, {message: "your dustbin is empty!"})
         }
         return sendResponse(200, {message: Items});
     } catch (error) {

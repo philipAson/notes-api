@@ -22,6 +22,30 @@ functions:
       - httpApi:
           path: '/api/notes'
           method: POST
+  getNotes:
+    handler: functions/getNotes/index.handler
+    events:
+      - httpApi:
+          path: '/api/notes'
+          method: GET
+  getDustBin:
+    handler: functions/getDustBin/index.handler
+    events:
+      - httpApi:
+          path: '/api/dustbin'
+          method: GET
+  changeNoteState:
+    handler: functions/changeNoteState/index.handler
+    events:
+      - httpApi:
+          path: '/api/notes/{state}/{id}'
+          method: PATCH
+  clearDustBin:
+    handler: functions/clearDustBin/index.handler
+    events:
+      - httpApi:
+          path: '/api/dustbin'
+          method: DELETE
 
 resources:
   Resources:

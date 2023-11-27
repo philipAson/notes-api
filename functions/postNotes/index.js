@@ -6,10 +6,15 @@ exports.handler = async (event, context) => {
     const note = JSON.parse(event.body);
 
     const timeStamp = new Date().getTime();
-    const dateNow = new Date().getUTCDate;
+    const dateNow = new Date().getUTCDate();
+
+    // psuedo UID
+    const userID = "philipTest"
 
     note.id = `${timeStamp}`;
     note.date = `${dateNow}`;
+    note.uid = `${userID}`;
+    note.active = true;
 
     try {
         await db.put({
@@ -17,7 +22,7 @@ exports.handler = async (event, context) => {
             Item: note
         }).promise()
 
-        return sendResponse(200, {success: true});
+        return sendResponse(200, {success: true, message: note});
     } catch (error) {
         return sendResponse(500, {message: error});
     }
