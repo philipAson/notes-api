@@ -40,12 +40,12 @@ functions:
       - httpApi:
           path: '/api/notes/{state}/{id}'
           method: PATCH
-  clearDustBin:
-    handler: functions/clearDustBin/index.handler
+  signUp:
+    handler: functions/signUp/index.handler
     events:
       - httpApi:
-          path: '/api/dustbin'
-          method: DELETE
+          path: '/auth/signup'
+          method: POST
 
 resources:
   Resources:
@@ -58,5 +58,17 @@ resources:
             AttributeType: S
         KeySchema:
           - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+    notesUsersDB:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: notesAccounts
+        AttributeDefinitions:
+          - AttributeName: username
+            AttributeType: S
+        KeySchema:
+          - AttributeName: username
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST

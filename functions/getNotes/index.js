@@ -7,9 +7,10 @@ exports.handler = async (event, context) => {
     
     let params = {
         TableName: 'notes-db',
-        FilterExpression: 'uid = :uidValue',
+        FilterExpression: 'uid = :uidValue AND active = :activeValue',
         ExpressionAttributeValues: {
-            ':uidValue': "philipTest"
+            ':uidValue': "philipTest",
+            'activeValue': true
         }
     }
 

@@ -23,7 +23,7 @@ exports.handler = async (event, context) => {
             break;
         
         default:
-            return sendResponse(500, {message: "wrong state input"});
+            return sendResponse(400, {message: "wrong state input"});
     }
 
     try {
