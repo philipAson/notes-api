@@ -16,7 +16,7 @@ async function createAccount(username, hashedPassword, userId, firstname, lastna
                 lastname: lastname,
                 userId: userId,
             }
-        }).promise
+        }).promise()
 
         return {success: true, userId: userId};
     } catch (error) {
@@ -33,7 +33,7 @@ async function signup(username, password, firstname, lastname) {
     // if username exists -> return success false, message: "username allready exists"
 
     // const hashedPassword = bcrypt.hash(password, 10);           
-    const hashedPassword = bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
     const userId = nanoid();
 
     const result = await createAccount(username, hashedPassword, userId, firstname, lastname);

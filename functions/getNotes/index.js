@@ -1,8 +1,9 @@
 const AWS = require('aws-sdk');
 const db = new AWS.DynamoDB.DocumentClient();
 const {sendResponse} = require('../../responses');
+const { default: middy } = require('@middy/core');
 
-exports.handler = async (event, context) => {
+const getNotes = async (event, context) => {
 
     
     let params = {
@@ -24,3 +25,7 @@ exports.handler = async (event, context) => {
         return sendResponse(500, {message: error});
     }
 }
+
+const handler = middy(getNotes);
+
+module.exports = {handler}
