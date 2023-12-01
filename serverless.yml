@@ -28,6 +28,12 @@ functions:
       - httpApi:
           path: '/api/notes'
           method: GET
+  editNote:
+    handler: functions/editNote/index.handler
+    events:
+      - httpApi:
+          path: '/api/notes/edit/{id}'
+          method: PUT
   getDustBin:
     handler: functions/getDustBin/index.handler
     events:

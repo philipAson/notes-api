@@ -8,9 +8,12 @@ const validateToken = {
             if (!token) throw new Error();
 
             const data = jwt.verify(token, 'aabbcc');
+            console.log(data);
 
             request.event.id = data.id;
             request.event.username = data.username;
+            // trial
+            request.event.userId = data.userId;
             
             return request.response;    
         } catch (error) {
